@@ -10,6 +10,8 @@ namespace PlatformHit
         private Rigidbody2D mRig;
         private float mGroundMoveSpeed = 5f;
         private float mJumpForce = 12f;
+        private bool mJumpInput;
+        private object key;
 
         private void Start()
         {
@@ -23,11 +25,16 @@ namespace PlatformHit
                 var bullet = Resources.Load<GameObject>("Bullet");
                 GameObject.Instantiate(bullet,transform.position,Quaternion.identity);
             }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                mJumpInput = true;
+            }
         }
         private void FixedUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (mJumpInput)
             {
+                mJumpInput = false;
                 mRig.velocity = new Vector2(mRig.velocity.x, mJumpForce);
                 
             }
